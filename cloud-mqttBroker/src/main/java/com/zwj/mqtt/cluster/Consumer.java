@@ -8,7 +8,6 @@ import com.zwj.mqtt.serialize.GsonSerialize;
 import io.netty.channel.Channel;
 import io.netty.handler.codec.mqtt.MqttQoS;
 import java.nio.charset.StandardCharsets;
-import java.util.Base64;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
