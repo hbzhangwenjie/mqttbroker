@@ -1,2 +1,14 @@
-# mqttbroker
-springboot netty 实现的mqtt协议
+# mqttBroker
+基于netty springboot实现的mqtt 服务端
+1.遗嘱消息
+2.保留消息
+3.消息质量 0/1/2
+4.集群部署
+
+加入自定义的自动订阅配置，如果只是设备和broker通信可以不用订阅
+自定义管理协议
+
+针对标准的mqtt协议有2点还没有实现
+1.topic的通配符过滤，mqtt协议允许客户端订阅 topic 使用#/+$ 符号来过滤主题
+2.在服务端发布qos 为1或者2 的消息的时候，在未收到 客户端响应时 需要重试
+    解决：目前发布qos 为1或者2消息时 存redis。可以基于redis 过期通知的机制完成 对客户端的 超时重发
