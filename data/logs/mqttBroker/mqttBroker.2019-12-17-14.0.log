@@ -1,6 +1,0 @@
-2019-12-17 14:45:27.837 [main] o.s.boot.StartupInfoLogger:50   INFO  - Starting Bootstarp on jimmydeMacBook-Pro.local with PID 2662 (/Users/jimmy/IdeaProjects/huzwj/mqttBroker/cloud-mqttBroker/target/classes started by jimmy in /Users/jimmy/IdeaProjects/huzwj/mqttBroker)
-2019-12-17 14:45:27.841 [main] o.s.boot.StartupInfoLogger:53   DEBUG - Running with Spring Boot v2.0.7.RELEASE, Spring v5.0.11.RELEASE
-2019-12-17 14:45:27.842 [main] o.s.boot.SpringApplication:654  INFO  - No active profile set, falling back to default profiles: default
-2019-12-17 14:45:29.057 [main] o.s.boot.StartupInfoLogger:59   INFO  - Started Bootstarp in 1.435 seconds (JVM running for 1.982)
-2019-12-17 14:45:29.060 [main] com.zwj.mqtt.server.MqttServer:55   INFO  - starting mqtt broker: 1 
-2019-12-17 14:45:29.207 [main] com.zwj.mqtt.server.MqttServer:93   INFO  - started mqtt broker: 1 ,host:127.0.0.1, port: 9090
