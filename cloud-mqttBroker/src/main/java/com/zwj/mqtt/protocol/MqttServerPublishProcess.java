@@ -15,6 +15,7 @@ import com.zwj.mqtt.service.RetainMessageService;
 import com.zwj.mqtt.service.SessionService;
 import com.zwj.mqtt.service.SubScribeService;
 import com.zwj.mqtt.constants.ServerConstant;
+import io.netty.buffer.PooledByteBufAllocator;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
@@ -158,7 +159,7 @@ public class MqttServerPublishProcess extends AbstractMqttProtocol {
                 //直接发
                 MqttPublishMessage mostMessage = (MqttPublishMessage) MqttMessageFactory.newMessage(
                         new MqttFixedHeader(MqttMessageType.PUBLISH, dup, pubQoS, retain, 0),
-                        new MqttPublishVariableHeader(topic, 0), Unpooled.buffer().writeBytes(messageBytes));
+                        new MqttPublishVariableHeader(topic, 0), PooledByteBufAllocator.DEFAULT.directBuffer().writeBytes(messageBytes));
                 channel.writeAndFlush(mostMessage);
                 break;
             case AT_LEAST_ONCE:
@@ -166,7 +167,7 @@ public class MqttServerPublishProcess extends AbstractMqttProtocol {
                 int leastMessageId = IdGenerator.getMessageId(brokerProperties.getBrokerId());
                 MqttPublishMessage leastMessage = (MqttPublishMessage) MqttMessageFactory.newMessage(
                         new MqttFixedHeader(MqttMessageType.PUBLISH, dup, pubQoS, retain, 0),
-                        new MqttPublishVariableHeader(topic, leastMessageId), Unpooled.buffer().writeBytes(messageBytes));
+                        new MqttPublishVariableHeader(topic, leastMessageId), PooledByteBufAllocator.DEFAULT.directBuffer().writeBytes(messageBytes));
                 dupMessageService.putDupMessage(leastMessageId, clientId,
                         new DupMessageModel(clientId, topic, pubQoS.value(), leastMessageId,
                                 Base64.getEncoder().encodeToString(messageBytes)));
@@ -177,7 +178,7 @@ public class MqttServerPublishProcess extends AbstractMqttProtocol {
                 int exactlyMessageId = IdGenerator.getMessageId(brokerProperties.getBrokerId());
                 MqttPublishMessage exactlyMessage = (MqttPublishMessage) MqttMessageFactory.newMessage(
                         new MqttFixedHeader(MqttMessageType.PUBLISH, dup, pubQoS, retain, 0),
-                        new MqttPublishVariableHeader(topic, exactlyMessageId), Unpooled.buffer().writeBytes(messageBytes));
+                        new MqttPublishVariableHeader(topic, exactlyMessageId), PooledByteBufAllocator.DEFAULT.directBuffer().writeBytes(messageBytes));
                 dupMessageService.putDupMessage(exactlyMessageId, clientId,
                         new DupMessageModel(clientId, topic, pubQoS.value(), exactlyMessageId,
                                 Base64.getEncoder().encodeToString(messageBytes)));

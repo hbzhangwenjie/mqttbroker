@@ -48,6 +48,7 @@ public class MqttServerDisConnectProcess extends AbstractMqttProtocol {
     @Override
     public void disConnect(Channel channel, MqttMessage msg) {
         String clientId = (String) channel.attr(AttributeKey.valueOf("clientId")).get();
+        channel.attr(AttributeKey.valueOf("clientId")).set(null);
         log.debug("DISCONNECT - clientId: {}", clientId);
         ServerConstant.CHANNEL_MAP.remove(clientId);
         // 正常下线删除遗嘱消息

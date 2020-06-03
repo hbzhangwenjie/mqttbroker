@@ -1,5 +1,6 @@
 package com.zwj.mqtt.protocol;
 
+import static com.zwj.mqtt.constants.MqttFixMessageEnum.PINGESRP;
 import static io.netty.handler.codec.mqtt.MqttMessageType.PINGREQ;
 
 import io.netty.channel.Channel;
@@ -34,9 +35,7 @@ public class MqttServerPingReqProcess extends AbstractMqttProtocol {
     @Override
     public void pingReq(Channel channel, MqttMessage msg) {
         String clientId = (String) channel.attr(AttributeKey.valueOf("clientId")).get();
-            MqttMessage pingRespMessage = MqttMessageFactory.newMessage(
-                    new MqttFixedHeader(MqttMessageType.PINGRESP, false, MqttQoS.AT_MOST_ONCE, false, 0), null, null);
             log.debug("PINGREQ - clientId: {}", clientId);
-            channel.writeAndFlush(pingRespMessage);
+            channel.writeAndFlush(PINGESRP.getMqttMessage());
     }
 }

@@ -95,6 +95,7 @@ public class MqttServerHandler extends SimpleChannelInboundHandler<MqttMessage> 
 
     private void sendWill(ChannelHandlerContext ctx) {
         String clientId = (String) ctx.channel().attr(AttributeKey.valueOf("clientId")).get();
+        log.debug("inactiveHandler,channelId:{},clientId:{}",ctx.channel().id(),clientId);
         if (!StringUtil.isNullOrEmpty(clientId)) {
             SessionModel sessionModel;
             // 发送遗嘱消息
@@ -107,6 +108,7 @@ public class MqttServerHandler extends SimpleChannelInboundHandler<MqttMessage> 
                 }
             }
             // 连接不活跃了
+            ctx.channel().attr(AttributeKey.valueOf("clientId")).set(null);
             CHANNEL_MAP.remove(clientId);
         }
     }
